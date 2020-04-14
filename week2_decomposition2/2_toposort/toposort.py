@@ -11,7 +11,16 @@ def toposort(adj):
     used = [0] * len(adj)
     order = []
     #write your code here
-    return order
+    def dfs(v):
+        used[v] = True
+        for w in adj[v]:
+            if used[w] == False:
+                dfs(w)
+        order.append(v)
+    for i in range(len(adj)):
+        if used[i]==False:
+            dfs(i)
+    return reversed(order)
 
 if __name__ == '__main__':
     input = sys.stdin.read()

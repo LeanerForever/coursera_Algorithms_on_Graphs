@@ -1,18 +1,26 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <functional>
 
 using std::vector;
 using std::pair;
 
 void dfs(vector<vector<int> > &adj, vector<int> &used, vector<int> &order, int x) {
   //write your code here
+  used[x] = 1;
+  for(int w : adj[x])
+    if(used[w]==0) dfs(adj,used,order,w);
+  order.push_back(x);
 }     
 
 vector<int> toposort(vector<vector<int> > adj) {
   vector<int> used(adj.size(), 0);
   vector<int> order;
   //write your code here
+  for (int i=0;i<adj.size();++i)
+    if (used[i]==false) dfs(adj,used,order,i);
+  std::reverse(order.begin(),order.end());
   return order;
 }
 
