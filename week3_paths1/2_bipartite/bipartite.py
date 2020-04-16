@@ -5,7 +5,22 @@ import queue
 
 def bipartite(adj):
     #write your code here
-    return -1
+    q = queue.Queue()
+    colored = [-1]*len(adj)
+    q.put(0)
+    colored[0] = 0
+    while not q.empty():
+        v = q.get()
+        for w in adj[v]:
+            if colored[w] == -1:
+                colored[w] = 1 - colored[v]
+                q.put(w)
+            elif colored[w] == colored[v]:
+                return 0
+    # for x in colored:
+    #     if x == -1:
+    #         return 0
+    return 1
 
 if __name__ == '__main__':
     input = sys.stdin.read()

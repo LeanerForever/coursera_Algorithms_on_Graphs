@@ -7,7 +7,18 @@ using std::queue;
 
 int bipartite(vector<vector<int> > &adj) {
   //write your code here
-  return -1;
+  queue<int> q;
+  q.push(0);
+  vector<int> colored(adj.size(),-1);
+  colored[0]=0;
+  while(!q.empty()){
+    int v = q.front(); q.pop();
+    for(int w: adj[v]){
+      if(colored[w]==-1) {colored[w]=1-colored[v];q.push(w);}
+      else if(colored[w]==colored[v]) return 0;
+    }
+  }
+  return 1;
 }
 
 int main() {
