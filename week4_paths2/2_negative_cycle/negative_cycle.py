@@ -5,7 +5,20 @@ import sys
 
 def negative_cycle(adj, cost):
     #write your code here
-    return 0
+    n = len(adj)
+    cycle = 0
+    dists = [10**7]*n
+    dists[0] = 0
+    for i in range(n+1):
+        cycle = 0
+        for i in range(n):
+            for j,w in enumerate(adj[i]):
+                if dists[w]> dists[i]+cost[i][j]:
+                    dists[w] = dists[i] + cost[i][j]
+                    cycle = 1
+        if cycle==0:
+            return 0
+    return cycle
 
 
 if __name__ == '__main__':

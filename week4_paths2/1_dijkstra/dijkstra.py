@@ -6,6 +6,19 @@ import queue
 
 def distance(adj, cost, s, t):
     #write your code here
+    pq = queue.PriorityQueue()
+    pq.put((0,s))
+    used = [False]*len(adj)
+
+    while not pq.empty():
+        dist,v = pq.get()
+        used[v] = True
+        if v == t:
+            return dist
+        else:
+            for i,w in enumerate(adj[v]):
+                if not used[w]:
+                    pq.put((dist+cost[v][i],w))
     return -1
 
 
